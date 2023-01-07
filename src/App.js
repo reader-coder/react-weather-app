@@ -14,10 +14,9 @@ function App() {
   const [weather, setWeather]= useState('');
   const[isC, setIsC] = useState(true)
 
+  
   async function fetchWeather(query){
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`);
-    const data = await response.json();
-    setWeather(data);
+    await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`).then(res=>res.json()).then(data=>setWeather(data)).catch(err=>setWeather(err))
   }
 
   useEffect(()=>{
