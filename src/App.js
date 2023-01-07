@@ -11,27 +11,22 @@ import TopButtons from './components/TopButtons';
 
 function App() {
 
-  const [weather, setWeather]= useState([]);
+  const [weather, setWeather]= useState('');
   const[isC, setIsC] = useState(true)
+
+  async function fetchWeather(query){
+    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`);
+    const data = await response.json();
+    setWeather(data);
+  }
 
   useEffect(()=>{
   fetchWeather('Kochi');
   },[])
 
 
-// console.log(weather)
-
-
-async function fetchWeather(query){
-  const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`);
-  const data = await response.json();
-  setWeather(data);
-}
-
-
-
   return (
-    <div className='mx-auto max-w-screen-md mt-4 py-5 px-32 h-fit shadow-xl shadow-gray-400 bg-gradient-to-br from-cyan-700 to-blue-700 '>
+    <div className='mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 '>
       <TopButtons fetchWeather={fetchWeather}/>
       <Inputs 
       fetchWeather={fetchWeather}
