@@ -17,7 +17,7 @@ function App() {
 
   
   async function fetchWeather(query){
-    axios.get(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`).then(res=>setWeather(res.data)).catch(err=>setWeather('Location Not Found!'))
+    await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`).then(res=>setWeather(res.data)).catch(err=>setWeather('Location Not Found!'))
   }
 
   // useEffect(()=>{
