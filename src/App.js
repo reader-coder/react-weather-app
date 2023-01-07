@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Forecast from './components/Forecast';
 import DailyForecast from './components/DailyForecast';
