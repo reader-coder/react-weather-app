@@ -6,21 +6,24 @@ import Inputs from './components/Inputs';
 import TemperatureDetails from './components/TemperatureDetails';
 import TimeAndLocation from './components/TimeAndLocation';
 import TopButtons from './components/TopButtons';
+import axios from 'axios';
 
 
 
 function App() {
 
-  const [weather, setWeather]= useState('');
+  const [weather, setWeather]= useState([]);
   const[isC, setIsC] = useState(true)
 
   
   async function fetchWeather(query){
-    await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`).then(res=>res.json()).then(data=>setWeather(data)).catch(err=>setWeather(err))
+    axios.get(`http://api.weatherapi.com/v1/forecast.json?key=2ef2f88f2f924f0d9de172508230101&q=${query}&days=5&aqi=no&alerts=no`).then(res=>setWeather(res.data)).catch(err=>setWeather('Location Not Found!'))
   }
-
+  console.log(weather)
   useEffect(()=>{
+
   fetchWeather('Kochi');
+
   },[])
 
 
@@ -43,7 +46,7 @@ function App() {
       <DailyForecast
       weather={weather}
       isC={isC}/>
-      </> : <h2 className='text-white'>{weather.error ? weather.error.message: `Fetching Data...`}</h2>}
+      </> : <h2 className='text-white'>{weather==='Location Not Found!' ? weather : `Fetching Data...`}</h2>}
     </div>
   );
 }
